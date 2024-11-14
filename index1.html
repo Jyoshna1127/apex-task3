@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joke of the Day</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s ease; /* Smooth background color change */
+    }
+    body:hover {
+      background-color: #e0f7fa; /* Change background color on hover */
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      transition: box-shadow 0.3s ease; /* Smooth box-shadow transition */
+    }
+    .container:hover {
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.2); /* Box-shadow effect on hover */
+    }
+    h1 {
+      color: #333;
+      transition: color 0.3s ease; /* Smooth color transition for h1 */
+    }
+    h1:hover {
+      color: #007BFF; /* Change color of h1 on hover */
+    }
+    p {
+      color: #555;
+      font-size: 18px;
+      transition: color 0.3s ease; /* Smooth color transition for paragraph */
+    }
+    p:hover {
+      color: #333; /* Darker text color when hovered */
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for button */
+    }
+    button:hover {
+      background-color: #0056b3; /* Button background color on hover */
+      transform: scale(1.05); /* Slight scale effect on hover */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Joke of the Day</h1>
+    <p id="joke">Loading joke...</p>
+    <button onclick="getJoke()">Get a New Joke</button>
+  </div>
+
+  <script>
+    // Function to fetch a random joke from the Joke API
+    function getJoke() {
+      fetch('https://v2.jokeapi.dev/joke/Any?type=single')  // Joke API URL
+        .then(response => response.json())
+        .then(data => {
+          const jokeElement = document.getElementById('joke');
+          if (data.joke) {
+            jokeElement.textContent = data.joke;
+          } else {
+            jokeElement.textContent = 'Sorry, no joke available at the moment!';
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching joke:', error);
+          document.getElementById('joke').textContent = 'Oops! Something went wrong.';
+        });
+    }
+
+    // Call the getJoke function on page load to display the first joke
+    getJoke();
+  </script>
+
+</body>
+</html>
